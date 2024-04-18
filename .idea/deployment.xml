@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Remote Development" deleteMissingItems="true" confirmBeforeUploading="false" confirmBeforeDeletion="false" autoUploadExternalChanges="true" compareModeInSync="TEXT">
+    <option name="confirmBeforeDeletion" value="false" />
+    <option name="confirmBeforeUploading" value="false" />
+    <serverData>
+      <paths name="EC-HOST (f4133533-7ef9-4d8f-bf64-16495b2ca9b8)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/mikelb/Proyecto" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
