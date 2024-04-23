@@ -496,8 +496,27 @@ oamUpdate(&oamMain);
 
 }
 
+void mostrarMesasResuelto(int indiceCorrecto, int mesaXpos[4], int mesaYpos[4]){
+    int i;
+    for (i=0; i<4;i++){
+        if (i==indiceCorrecto){
+            mostrarMesaCorrecta(indiceCorrecto,mesaXpos[i],mesaYpos[i]);
+        }
+        else {
+            mostrarMesaIncorrecta(i,mesaXpos[i],mesaYpos[i]);
+        }
+    }
+}
 
-
+void ponerBilletes(int billetesMesa[4], int mesaXpos[4], int mesaYpos[4]){
+    int i;
+    int j;
+    for (i = 0; i<4;i++){
+        for (j = 0; j < billetesMesa[i];j++){
+            mostrarBillete(5+j+(i*10),mesaXpos[i]+(j*2),mesaYpos[i]+(j*2));
+        }
+    }
+}
 
 
 

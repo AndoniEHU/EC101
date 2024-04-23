@@ -112,8 +112,6 @@ void initSpriteMem() {
 	oamInit(&oamSub, SpriteMapping_1D_32, false);
 }
 
-
-
 void inicializarGraficosSprites()
 {
 	inicializarGraficos();
