@@ -41,10 +41,10 @@ int indCaja;
 
 
 int seleccionCaja(int px,int py){
-	if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) return 0;
-	if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) return 1;
-	if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) return 2;
-	if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) return 3;
+	if ((px >= 30 && px <= 120) && (py >= 30 && py <= 80)) return 0;
+	if ((px >= 136 && px <= 224) && (py >= 30 && py <= 80)) return 1;
+	if ((px >= 30 && px <= 120) && (py >= 116 && py <= 164)) return 2;
+	if ((px >= 136 && px <= 224) && (py >= 116 && py <= 164)) return 3;
 	return -1;
 
 }
