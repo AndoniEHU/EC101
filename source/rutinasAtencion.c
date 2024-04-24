@@ -18,44 +18,65 @@ int ESTADO; // Para controlar el estado del autómata en que esté
 int seg3;   // Para ver si pasan tres segundos
 int i;
 int Dinero = 100000;
-int DineroMesa[4] = {0};
-int mesaXpos[] = {4,120,4,12};
-int mesaYpos[] = {16,112,16,112};
+// struct mesa {
+//    int idMesa;
+//    int dineroActual;
+//    int mesaXpos;
+//    int mesaYpos;
+//    _Bool esCorrecta;
+// };
+
+//struct mesa Tablero [4]
+//struct mesa mesa_A = {0,0,4,16,0};
+//struct mesa mesa_B = {1,0,120,16,0};
+//struct mesa mesa_C = {2,0,4,112,0};
+//struct mesa mesa_D = {3,0,120,112,0};
+
+int DineroCajas[4] = {0};
+int BilletesMesa[4] = {0};
+int mesaXpos[] = {4,120,4,120};
+int mesaYpos[] = {16,16,112,112};
 int indCaja;
 
 void RutAtencionTeclado ()
 {
-if (ESTADO == CERRADA)
-{	
-	if (TeclaPulsada()==A)
-	{
-		ESTADO=ABIERTA;
-		visualizarFondoDos();
-        soundEnable();
-	}
-}
+
 }
 
 void RutAtencionTempo() {
     static int tick = 0;
-    static int seg = 0;
+    static int seg = 45;
+    static int seg5 = 0;
+    static int ronda = 1;
     srand(time(NULL));
     int px = rand() % 240;
     int py = rand() % 180;
     int randInd = (rand() % 127) + 5;
     consoleClear();
     touchRead(&PANT_DAT);
-    printf("Pos x: %d", PANT_DAT.px);
-    printf("Pos y: %d", PANT_DAT.py);
-
-    // Mostrar mesas (meter en 1 funcion todo dentro de sprites.c)
     tick++;
+
+    printf("Han pasado segundos %d",seg);
+    if (tick==8 && seg>0){
+        seg--;
+        tick=0;
+    }
+
+
+    //printf("Pos x: %d", PANT_DAT.px);
+    //printf("Pos y: %d", PANT_DAT.py);
+
+
+    // Mostrar mesas (meter en 1 funcion)
     // diruaJauzi(2);
 
-    if (ESTADO == ABIERTA) {
-        mostrarMesas();
-    }
-    if (ESTADO != FINAL) {
+    printf("\n\n ESTADO=%d",ESTADO);
+    printf("\n\n Ronda actual = %d / 10",ronda);
+    if (ESTADO != FINAL && seg>=0) {
+        if (seg==0){
+            ESTADO=RESUELTO;
+        }
+
         if (ESTADO != SELCAJA) {
             if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) {
                 indCaja = 0;
@@ -85,39 +106,55 @@ void RutAtencionTempo() {
         }
         if (ESTADO == SELCAJA) {
             printf("\n\n\n\n Dinero actual= %d", Dinero);
-            printf("\n\n\n\n Dinero actual Caja A = %d", DineroMesa[0]);
-            printf("\n\n\n\n Dinero actual Caja B = %d", DineroMesa[1]);
-            printf("\n\n\n\n Dinero actual Caja C = %d", DineroMesa[2]);
-            printf("\n\n\n\n Dinero actual Caja D = %d", DineroMesa[3]);
+            printf("\n\n\n\n Dinero actual Caja A = %d", DineroCajas[0]);
+            printf("\n\n\n\n Dinero actual Caja B = %d", DineroCajas[1]);
+            printf("\n\n\n\n Dinero actual Caja C = %d", DineroCajas[2]);
+            printf("\n\n\n\n Dinero actual Caja D = %d", DineroCajas[3]);
             printf("\n\n Mesa escogida = %d", indCaja);
             if (TeclaPulsada() == B) {
-                ESTADO = ABIERTA;
+                ESTADO = RESOLVIENDO;
+                mostrarMesas();
             }
             if (TeclaPulsada() == L) {
                 printf("\n\n -10000 EUROS EN LA OPCION %d", indCaja);
-                if ((Dinero >= 0 && Dinero < 100000) && (DineroMesa[indCaja] > 0 && DineroMesa[indCaja] <= 100000)) {
+                if ((Dinero >= 0 && Dinero < 100000) && (DineroCajas[indCaja] > 0 && DineroCajas[indCaja] <= 100000)) {
                     Dinero = Dinero + 10000;
-                    DineroMesa[indCaja] = DineroMesa[indCaja] - 10000;
+                    DineroCajas[indCaja] = DineroCajas[indCaja] - 10000;
+                    BilletesMesa[indCaja] = BilletesMesa[indCaja] - 1;
                 }
             }
             if (TeclaPulsada() == R) {
                 printf("\n\n +10000 EUROS EN LA OPCION %d", indCaja);
-                if ((Dinero > 0 && Dinero <= 100000) && (DineroMesa[indCaja] >= 0 && DineroMesa[indCaja] < 100000)) {
+                if ((Dinero > 0 && Dinero <= 100000) && (DineroCajas[indCaja] >= 0 && DineroCajas[indCaja] < 100000)) {
                     Dinero = Dinero - 10000;
-                    DineroMesa[indCaja] = DineroMesa[indCaja] + 10000;
+                    DineroCajas[indCaja] = DineroCajas[indCaja] + 10000;
+                    BilletesMesa[indCaja] = BilletesMesa[indCaja] + 1;
                 }
             }
         }
         // Simplificar tras probar en 1 sola funcion
-        if (TeclaPulsada() == SELECT && ESTADO == SELCAJA) {
-            mostrarMesaIncorrecta(0, mesaXpos[0], mesaYpos[0]);
-            mostrarMesaIncorrecta(1, mesaXpos[1], mesaYpos[1]);
-            mostrarMesaIncorrecta(2, mesaXpos[2], mesaYpos[2]);
-            mostrarMesaIncorrecta(3, mesaXpos[3], mesaYpos[3]);
-            mostrarMesaCorrecta(indCaja, mesaXpos[indCaja], mesaYpos[indCaja]);
-            Dinero = Dinero + DineroMesa[indCaja];
-            memset(DineroMesa, 0, sizeof(DineroMesa));
-            if (Dinero == 0 && TeclaPulsada() == SELECT) {
+        if (ESTADO == RESUELTO) {
+            mostrarMesasResuelto(indCaja,mesaXpos,mesaYpos);
+         //   mostrarMesaIncorrecta(0, mesaXpos[0], mesaYpos[0]);
+         //   mostrarMesaIncorrecta(1, mesaXpos[1], mesaYpos[1]);
+         //   mostrarMesaIncorrecta(2, mesaXpos[2], mesaYpos[2]);
+         //   mostrarMesaIncorrecta(3, mesaXpos[3], mesaYpos[3]);
+         //   mostrarMesaCorrecta(indCaja, mesaXpos[indCaja], mesaYpos[indCaja]);
+            ponerBilletes(BilletesMesa,mesaXpos,mesaYpos);
+            Dinero = Dinero + DineroCajas[indCaja];
+            memset(DineroCajas, 0, sizeof(DineroCajas));
+            if (tick==12 && seg5<5){
+                printf("Segundos animacion: %d",seg5);
+                seg5++;
+                tick=0;
+            }
+            if (seg5==3){
+                // Prueba de billete cayendo
+                oamRotateScale(&oamMain, 15, 1, 150 + 100 * i*2, 150 + 100 * i*2);
+                oamUpdate(&oamMain);
+            }
+
+            if ((Dinero == 0 || ronda>10)) {
                 borrarMesaIncorrecta(0, mesaXpos[0], mesaYpos[0]);
                 borrarMesaIncorrecta(1, mesaXpos[1], mesaYpos[1]);
                 borrarMesaIncorrecta(2, mesaXpos[2], mesaYpos[2]);
@@ -125,12 +162,18 @@ void RutAtencionTempo() {
                 borrarMesaCorrecta(indCaja, mesaXpos[indCaja], mesaYpos[indCaja]);
                 visualizarFondoUno();
                 ESTADO = FINAL;
-            } else {
-                ESTADO = ABIERTA;
+                } else if (seg5==5){
+                borrarBillete(15,1,1);
+                    ronda=ronda+1;
+                    seg=45;
+                    seg5=0;
+                    borrarBillete(7,mesaXpos[1],mesaYpos[1]);
+                    ESTADO=RESOLVIENDO;
+                    mostrarMesas();
+                }
             }
         }
     }
-}
 
 
 
