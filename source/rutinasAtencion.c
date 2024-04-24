@@ -26,6 +26,7 @@ int Dinero = 100000;
 //    _Bool esCorrecta;
 // };
 
+
 //struct mesa Tablero [4]
 //struct mesa mesa_A = {0,0,4,16,0};
 //struct mesa mesa_B = {1,0,120,16,0};
@@ -37,6 +38,46 @@ int BilletesMesa[4] = {0};
 int mesaXpos[] = {4,120,4,120};
 int mesaYpos[] = {16,16,112,112};
 int indCaja;
+
+
+int seleccionCaja(int px,int py){
+	if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) return 0;
+	if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) return 1;
+	if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) return 2;
+	if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) return 3;
+	return -1;
+
+}
+
+void printEstadoCajas(){
+	printf("\n\n\n\n Dinero actual= %d", Dinero);
+        printf("\n\n\n\n Dinero actual Caja A = %d", DineroCajas[0]);
+        printf("\n\n\n\n Dinero actual Caja B = %d", DineroCajas[1]);
+        printf("\n\n\n\n Dinero actual Caja C = %d", DineroCajas[2]);
+	printf("\n\n\n\n Dinero actual Caja D = %d", DineroCajas[3]);
+	printf("\n\n Mesa escogida = %d", indCaja);
+}
+
+bool estaCajaVacia(int *dineroCaja){
+
+	return *dineroCaja > 0;
+
+}
+void restarDineroCaja(int *dineroCaja, int *dineroTotal){
+	*dineroTotal = *dineroTotal + 10000;
+       	*dineroCaja = *dineroCaja - 10000;
+}
+
+bool estaDineroTotalVacio(int *dineroTotal){
+
+	return *dineroTotal > 0;
+
+}
+void sumarDineroCaja(int *dineroCaja, int *dineroTotal){
+	*dineroTotal = *dineroTotal - 10000;
+       	*dineroCaja = *dineroCaja + 10000;
+}
+
 
 void RutAtencionTeclado ()
 {
@@ -78,58 +119,46 @@ void RutAtencionTempo() {
         }
 
         if (ESTADO != SELCAJA) {
-            if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) {
-                indCaja = 0;
-                mostrarMesaDebug(indCaja, 4, 16);
-                ESTADO = SELCAJA;
-            }
-
-            if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 30 && PANT_DAT.py <= 80)) {
-                // mostrarBillete(4,PANT_DAT.px-20,PANT_DAT.py-20);
-                indCaja = 1;
-                mostrarMesaDebug(indCaja, 120, 16);
-                ESTADO = SELCAJA;
-            }
-
-
-            if ((PANT_DAT.px >= 30 && PANT_DAT.px <= 120) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) {
-                indCaja = 2;
-                mostrarMesaDebug(indCaja, 4, 112);
-                ESTADO = SELCAJA;
-            }
-
-            if ((PANT_DAT.px >= 136 && PANT_DAT.px <= 224) && (PANT_DAT.py >= 116 && PANT_DAT.py <= 164)) {
-                indCaja = 3;
-                mostrarMesaDebug(indCaja, 120, 112);
-                ESTADO = SELCAJA;
-            }
+		switch(seleccionCaja(PANT_DAT.px,PANT_DAT.py)){
+			case 0:
+				indCaja = 0;
+                		mostrarMesaDebug(indCaja, 4, 16);
+				ESTADO = SELCAJA;
+				break;
+			case 1:
+				// mostrarBillete(4,PANT_DAT.px-20,PANT_DAT.py-20);
+				indCaja = 1;
+                		mostrarMesaDebug(indCaja, 120, 16);
+				ESTADO = SELCAJA;
+				break;
+			case 2:
+				indCaja = 2;
+                		mostrarMesaDebug(indCaja, 4, 112);
+				ESTADO = SELCAJA;
+				break;
+			case 3:
+				indCaja = 3;
+                		mostrarMesaDebug(indCaja, 120, 112);
+				ESTADO = SELCAJA;
+				break;
+		}
+            
         }
         if (ESTADO == SELCAJA) {
-            printf("\n\n\n\n Dinero actual= %d", Dinero);
-            printf("\n\n\n\n Dinero actual Caja A = %d", DineroCajas[0]);
-            printf("\n\n\n\n Dinero actual Caja B = %d", DineroCajas[1]);
-            printf("\n\n\n\n Dinero actual Caja C = %d", DineroCajas[2]);
-            printf("\n\n\n\n Dinero actual Caja D = %d", DineroCajas[3]);
-            printf("\n\n Mesa escogida = %d", indCaja);
+	    printEstadoCajas();
             if (TeclaPulsada() == B) {
                 ESTADO = RESOLVIENDO;
                 mostrarMesas();
             }
-            if (TeclaPulsada() == L) {
+            if (TeclaPulsada() == L && estaCajaVacia(&DineroCajas[indCaja])) {
                 printf("\n\n -10000 EUROS EN LA OPCION %d", indCaja);
-                if ((Dinero >= 0 && Dinero < 100000) && (DineroCajas[indCaja] > 0 && DineroCajas[indCaja] <= 100000)) {
-                    Dinero = Dinero + 10000;
-                    DineroCajas[indCaja] = DineroCajas[indCaja] - 10000;
-                    BilletesMesa[indCaja] = BilletesMesa[indCaja] - 1;
-                }
+		restarDineroCaja(&DineroCajas[indCaja],&Dinero);
+		BilletesMesa[indCaja] = BilletesMesa[indCaja] - 1;
             }
-            if (TeclaPulsada() == R) {
+            if (TeclaPulsada() == R && estaDineroTotalVacio(&Dinero)) {
                 printf("\n\n +10000 EUROS EN LA OPCION %d", indCaja);
-                if ((Dinero > 0 && Dinero <= 100000) && (DineroCajas[indCaja] >= 0 && DineroCajas[indCaja] < 100000)) {
-                    Dinero = Dinero - 10000;
-                    DineroCajas[indCaja] = DineroCajas[indCaja] + 10000;
-                    BilletesMesa[indCaja] = BilletesMesa[indCaja] + 1;
-                }
+		sumarDineroCaja(&DineroCajas[indCaja],&Dinero);
+		BilletesMesa[indCaja] = BilletesMesa[indCaja] + 1;
             }
         }
         // Simplificar tras probar en 1 sola funcion
@@ -184,6 +213,12 @@ void EstablecerVectorInt()
 // A COMPLETAR
 	irqSet(0x4001,RutAtencionTeclado);
 	irqSet(0x8,RutAtencionTempo);
+	
+}
+
+
+void InicializarPreguntas(){
+
 	
 }
 
