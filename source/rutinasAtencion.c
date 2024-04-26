@@ -10,6 +10,7 @@ rutinasAtencion.c
 #include "sprites.h"
 #include "time.h"
 #include "unistd.h"
+#include "preguntas.h"
 
 
 
@@ -38,6 +39,7 @@ int BilletesMesa[4] = {0};
 int mesaXpos[] = {4,120,4,120};
 int mesaYpos[] = {16,16,112,112};
 int indCaja;
+int ronda = 1;
 
 
 int seleccionCaja(int px,int py){
@@ -51,11 +53,11 @@ int seleccionCaja(int px,int py){
 
 void printEstadoCajas(){
 	printf("\n\n\n\n Dinero actual= %d", Dinero);
-        printf("\n\n\n\n Dinero actual Caja A = %d", DineroCajas[0]);
-        printf("\n\n\n\n Dinero actual Caja B = %d", DineroCajas[1]);
-        printf("\n\n\n\n Dinero actual Caja C = %d", DineroCajas[2]);
-	printf("\n\n\n\n Dinero actual Caja D = %d", DineroCajas[3]);
-	printf("\n\n Mesa escogida = %d", indCaja);
+        printf("\n\n\n\n Dinero actual Caja %s = %d", preguntas[ronda-1].respuestas[0],DineroCajas[0]);
+        printf("\n\n\n\n Dinero actual Caja %s = %d", preguntas[ronda-1].respuestas[1],DineroCajas[1]);
+        printf("\n\n\n\n Dinero actual Caja %s = %d", preguntas[ronda-1].respuestas[2],DineroCajas[2]);
+	printf("\n\n\n\n Dinero actual Caja %s = %d", preguntas[ronda-1].respuestas[3],DineroCajas[3]);
+	printf("\n\n %s", preguntas[ronda-1].pregunta);
 }
 
 bool estaCajaVacia(int *dineroCaja){
@@ -88,7 +90,6 @@ void RutAtencionTempo() {
     static int tick = 0;
     static int seg = 45;
     static int seg5 = 0;
-    static int ronda = 1;
     srand(time(NULL));
     int px = rand() % 240;
     int py = rand() % 180;
@@ -118,6 +119,10 @@ void RutAtencionTempo() {
             ESTADO=RESUELTO;
         }
 
+	if(ESTADO==SELCAJA || ESTADO==RESOLVIENDO && seg==0){
+		printEstadoCajas();
+	}
+
         if (ESTADO != SELCAJA) {
 		switch(seleccionCaja(PANT_DAT.px,PANT_DAT.py)){
 			case 0:
@@ -145,7 +150,6 @@ void RutAtencionTempo() {
             
         }
         if (ESTADO == SELCAJA) {
-	    printEstadoCajas();
             if (TeclaPulsada() == B) {
                 ESTADO = RESOLVIENDO;
                 mostrarMesas();
@@ -163,7 +167,7 @@ void RutAtencionTempo() {
         }
         // Simplificar tras probar en 1 sola funcion
         if (ESTADO == RESUELTO) {
-            mostrarMesasResuelto(indCaja,mesaXpos,mesaYpos);
+            mostrarMesasResuelto(preguntas[ronda-1].indCorrecta,mesaXpos,mesaYpos);
          //   mostrarMesaIncorrecta(0, mesaXpos[0], mesaYpos[0]);
          //   mostrarMesaIncorrecta(1, mesaXpos[1], mesaYpos[1]);
          //   mostrarMesaIncorrecta(2, mesaXpos[2], mesaYpos[2]);
@@ -213,12 +217,6 @@ void EstablecerVectorInt()
 // A COMPLETAR
 	irqSet(0x4001,RutAtencionTeclado);
 	irqSet(0x8,RutAtencionTempo);
-	
-}
-
-
-void InicializarPreguntas(){
-
 	
 }
 
