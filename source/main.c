@@ -22,7 +22,8 @@ int main(void) {
 
 	inicializarGraficosSprites();
 	HabilitarInterrupciones();
-
+	inicializarPreguntas();
+	//aleatorizarPreguntas();
 	// Llamada al juego que vosotros programaréis
 	juego();
 
