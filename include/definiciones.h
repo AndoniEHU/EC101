@@ -50,13 +50,3 @@ touchPosition PANT_DAT;
 #define RESUELTO 3
 #define FINAL 4
 extern int ESTADO;
-
-#ifndef PREGUNTA_H
-#define PREGUNTA_H
-struct pregunta {
-	char pregunta [75];
-	char respuestas [4][25];
-	int indCorrecta;
-};
-#endif
-
