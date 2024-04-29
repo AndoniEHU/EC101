@@ -11,10 +11,15 @@ Código desarrollado basado en el ejemplo "Simple sprite demo" de dovoto y en ot
 #include "definiciones.h"
 
 u16* gfxBillete;
+u16* gfxBilleteSub;
 u16* gfxMesaNormal;
+u16* gfxMesaNormalSub;
 u16* gfxMesaCorrecta;
+u16* gfxMesaCorrectaSub;
 u16* gfxMesaIncorrecta;
+u16* gfxMesaIncorrectaSub;
 u16* gfxMesaDebug;
+u16* gfxMesaDebugSub;
 
 
 
@@ -23,10 +28,15 @@ void memoriaReserva()
 {
 	/* Por cada sprite que se quiera incluir en la pantalla principal hay que hacer algo equivalente a lo que sigue */
     gfxBillete=oamAllocateGfx(&oamMain, SpriteSize_32x32, SpriteColorFormat_256Color);
+   // gfxBilleteSub=oamAllocateGfx(&oamSub, SpriteSize_32x32, SpriteColorFormat_256Color);
     gfxMesaNormal=oamAllocateGfx(&oamMain, SpriteSize_64x32, SpriteColorFormat_256Color);
+    gfxMesaNormalSub=oamAllocateGfx(&oamSub, SpriteSize_64x32, SpriteColorFormat_256Color);
     gfxMesaCorrecta=oamAllocateGfx(&oamMain, SpriteSize_64x32, SpriteColorFormat_256Color);
+    gfxMesaCorrectaSub=oamAllocateGfx(&oamSub, SpriteSize_64x32, SpriteColorFormat_256Color);
     gfxMesaIncorrecta=oamAllocateGfx(&oamMain, SpriteSize_64x32, SpriteColorFormat_256Color);
+    gfxMesaIncorrectaSub=oamAllocateGfx(&oamSub, SpriteSize_64x32, SpriteColorFormat_256Color);
     gfxMesaDebug=oamAllocateGfx(&oamMain, SpriteSize_64x32, SpriteColorFormat_256Color);
+    gfxMesaDebugSub=oamAllocateGfx(&oamSub, SpriteSize_64x32, SpriteColorFormat_256Color);
 
 }
 
@@ -269,6 +279,242 @@ void EstablecerPaleta() {
     SPRITE_PALETTE[227] = RGB15(0,255,0);
     SPRITE_PALETTE[228] = RGB15(255,0,0);
     SPRITE_PALETTE[229] = RGB15(124,252,0);
+
+    // Paleta SUB
+    SPRITE_PALETTE_SUB[0] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[1] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[2] = RGB15(2,15,2);
+    SPRITE_PALETTE_SUB[3] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[4] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[5] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[6] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[7] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[8] = RGB15(2,15,2);
+    SPRITE_PALETTE_SUB[9] = RGB15(3,22,1);
+    SPRITE_PALETTE_SUB[10] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[11] = RGB15(6,18,6);
+    SPRITE_PALETTE_SUB[12] = RGB15(5,18,5);
+    SPRITE_PALETTE_SUB[13] = RGB15(7,20,7);
+    SPRITE_PALETTE_SUB[14] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[15] = RGB15(5,18,4);
+    SPRITE_PALETTE_SUB[16] = RGB15(11,24,11);
+    SPRITE_PALETTE_SUB[17] = RGB15(10,23,10);
+    SPRITE_PALETTE_SUB[18] = RGB15(5,18,5);
+    SPRITE_PALETTE_SUB[19] = RGB15(13,27,13);
+    SPRITE_PALETTE_SUB[20] = RGB15(4,20,3);
+    SPRITE_PALETTE_SUB[21] = RGB15(11,25,11);
+    SPRITE_PALETTE_SUB[22] = RGB15(14,27,14);
+    SPRITE_PALETTE_SUB[23] = RGB15(14,27,14);
+    SPRITE_PALETTE_SUB[24] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[25] = RGB15(14,28,14);
+    SPRITE_PALETTE_SUB[26] = RGB15(6,21,6);
+    SPRITE_PALETTE_SUB[27] = RGB15(14,28,14);
+    SPRITE_PALETTE_SUB[28] = RGB15(13,27,13);
+    SPRITE_PALETTE_SUB[29] = RGB15(12,25,12);
+    SPRITE_PALETTE_SUB[30] = RGB15(11,24,11);
+    SPRITE_PALETTE_SUB[31] = RGB15(10,23,10);
+    SPRITE_PALETTE_SUB[32] = RGB15(9,22,8);
+    SPRITE_PALETTE_SUB[33] = RGB15(3,17,2);
+    SPRITE_PALETTE_SUB[34] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[35] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[36] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[37] = RGB15(9,15,9);
+    SPRITE_PALETTE_SUB[38] = RGB15(16,16,16);
+    SPRITE_PALETTE_SUB[39] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[40] = RGB15(10,19,10);
+    SPRITE_PALETTE_SUB[41] = RGB15(21,21,16);
+    SPRITE_PALETTE_SUB[42] = RGB15(25,25,6);
+    SPRITE_PALETTE_SUB[43] = RGB15(22,22,22);
+    SPRITE_PALETTE_SUB[44] = RGB15(4,19,4);
+    SPRITE_PALETTE_SUB[45] = RGB15(11,20,10);
+    SPRITE_PALETTE_SUB[46] = RGB15(23,23,16);
+    SPRITE_PALETTE_SUB[47] = RGB15(28,28,3);
+    SPRITE_PALETTE_SUB[48] = RGB15(24,24,24);
+    SPRITE_PALETTE_SUB[49] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[50] = RGB15(5,18,5);
+    SPRITE_PALETTE_SUB[51] = RGB15(4,19,4);
+    SPRITE_PALETTE_SUB[52] = RGB15(13,27,13);
+    SPRITE_PALETTE_SUB[53] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[54] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[55] = RGB15(8,22,8);
+    SPRITE_PALETTE_SUB[56] = RGB15(7,20,6);
+    SPRITE_PALETTE_SUB[57] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[58] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[59] = RGB15(11,15,10);
+    SPRITE_PALETTE_SUB[60] = RGB15(24,24,8);
+    SPRITE_PALETTE_SUB[61] = RGB15(22,22,14);
+    SPRITE_PALETTE_SUB[62] = RGB15(13,19,12);
+    SPRITE_PALETTE_SUB[63] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[64] = RGB15(26,26,6);
+    SPRITE_PALETTE_SUB[65] = RGB15(25,25,13);
+    SPRITE_PALETTE_SUB[66] = RGB15(13,20,13);
+    SPRITE_PALETTE_SUB[67] = RGB15(7,20,7);
+    SPRITE_PALETTE_SUB[68] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[69] = RGB15(5,18,5);
+    SPRITE_PALETTE_SUB[70] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[71] = RGB15(4,20,3);
+    SPRITE_PALETTE_SUB[72] = RGB15(7,20,6);
+    SPRITE_PALETTE_SUB[73] = RGB15(14,28,14);
+    SPRITE_PALETTE_SUB[74] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[75] = RGB15(12,26,12);
+    SPRITE_PALETTE_SUB[76] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[77] = RGB15(2,16,2);
+    SPRITE_PALETTE_SUB[78] = RGB15(5,19,4);
+    SPRITE_PALETTE_SUB[79] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[80] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[81] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[82] = RGB15(2,16,2);
+    SPRITE_PALETTE_SUB[83] = RGB15(6,19,6);
+    SPRITE_PALETTE_SUB[84] = RGB15(14,28,14);
+    SPRITE_PALETTE_SUB[85] = RGB15(6,19,5);
+    SPRITE_PALETTE_SUB[86] = RGB15(4,19,3);
+    SPRITE_PALETTE_SUB[87] = RGB15(13,27,13);
+    SPRITE_PALETTE_SUB[88] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[89] = RGB15(7,22,6);
+    SPRITE_PALETTE_SUB[90] = RGB15(12,26,12);
+    SPRITE_PALETTE_SUB[91] = RGB15(7,21,6);
+    SPRITE_PALETTE_SUB[92] = RGB15(7,21,7);
+    SPRITE_PALETTE_SUB[93] = RGB15(4,18,4);
+    SPRITE_PALETTE_SUB[94] = RGB15(4,18,3);
+    SPRITE_PALETTE_SUB[95] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[96] = RGB15(7,22,6);
+    SPRITE_PALETTE_SUB[97] = RGB15(4,20,3);
+    SPRITE_PALETTE_SUB[98] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[99] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[100] = RGB15(3,18,2);
+    SPRITE_PALETTE_SUB[101] = RGB15(12,25,11);
+    SPRITE_PALETTE_SUB[102] = RGB15(11,24,10);
+    SPRITE_PALETTE_SUB[103] = RGB15(7,20,6);
+    SPRITE_PALETTE_SUB[104] = RGB15(5,21,5);
+    SPRITE_PALETTE_SUB[105] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[106] = RGB15(7,21,7);
+    SPRITE_PALETTE_SUB[107] = RGB15(11,25,11);
+    SPRITE_PALETTE_SUB[108] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[109] = RGB15(2,17,2);
+    SPRITE_PALETTE_SUB[110] = RGB15(6,21,6);
+    SPRITE_PALETTE_SUB[111] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[112] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[113] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[114] = RGB15(8,22,8);
+    SPRITE_PALETTE_SUB[115] = RGB15(14,27,14);
+    SPRITE_PALETTE_SUB[116] = RGB15(10,23,10);
+    SPRITE_PALETTE_SUB[117] = RGB15(10,22,9);
+    SPRITE_PALETTE_SUB[118] = RGB15(6,21,6);
+    SPRITE_PALETTE_SUB[119] = RGB15(6,20,6);
+    SPRITE_PALETTE_SUB[120] = RGB15(7,19,6);
+    SPRITE_PALETTE_SUB[121] = RGB15(12,25,12);
+    SPRITE_PALETTE_SUB[122] = RGB15(6,20,5);
+    SPRITE_PALETTE_SUB[123] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[124] = RGB15(2,17,2);
+    SPRITE_PALETTE_SUB[125] = RGB15(7,21,6);
+    SPRITE_PALETTE_SUB[126] = RGB15(4,19,3);
+    SPRITE_PALETTE_SUB[127] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[128] = RGB15(10,23,9);
+    SPRITE_PALETTE_SUB[129] = RGB15(8,21,7);
+    SPRITE_PALETTE_SUB[130] = RGB15(7,20,7);
+    SPRITE_PALETTE_SUB[131] = RGB15(6,20,6);
+    SPRITE_PALETTE_SUB[132] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[133] = RGB15(14,28,14);
+    SPRITE_PALETTE_SUB[134] = RGB15(7,22,6);
+    SPRITE_PALETTE_SUB[135] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[136] = RGB15(14,27,14);
+    SPRITE_PALETTE_SUB[137] = RGB15(8,22,7);
+    SPRITE_PALETTE_SUB[138] = RGB15(7,21,6);
+    SPRITE_PALETTE_SUB[139] = RGB15(4,18,3);
+    SPRITE_PALETTE_SUB[140] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[141] = RGB15(4,17,3);
+    SPRITE_PALETTE_SUB[142] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[143] = RGB15(3,20,1);
+    SPRITE_PALETTE_SUB[144] = RGB15(8,21,8);
+    SPRITE_PALETTE_SUB[145] = RGB15(9,22,9);
+    SPRITE_PALETTE_SUB[146] = RGB15(8,20,7);
+    SPRITE_PALETTE_SUB[147] = RGB15(4,17,3);
+    SPRITE_PALETTE_SUB[148] = RGB15(3,17,3);
+    SPRITE_PALETTE_SUB[149] = RGB15(3,19,1);
+    SPRITE_PALETTE_SUB[150] = RGB15(4,18,4);
+    SPRITE_PALETTE_SUB[151] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[152] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[153] = RGB15(2,14,1);
+    SPRITE_PALETTE_SUB[154] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[155] = RGB15(2,14,1);
+    SPRITE_PALETTE_SUB[156] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[157] = RGB15(11,24,11);
+    SPRITE_PALETTE_SUB[158] = RGB15(4,19,3);
+    SPRITE_PALETTE_SUB[159] = RGB15(6,20,5);
+    SPRITE_PALETTE_SUB[160] = RGB15(3,21,1);
+    SPRITE_PALETTE_SUB[161] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[162] = RGB15(10,17,9);
+    SPRITE_PALETTE_SUB[163] = RGB15(19,19,13);
+    SPRITE_PALETTE_SUB[164] = RGB15(24,24,2);
+    SPRITE_PALETTE_SUB[165] = RGB15(19,19,19);
+    SPRITE_PALETTE_SUB[166] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[167] = RGB15(9,16,9);
+    SPRITE_PALETTE_SUB[168] = RGB15(19,19,13);
+    SPRITE_PALETTE_SUB[169] = RGB15(22,22,2);
+    SPRITE_PALETTE_SUB[170] = RGB15(19,19,19);
+    SPRITE_PALETTE_SUB[171] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[172] = RGB15(10,16,9);
+    SPRITE_PALETTE_SUB[173] = RGB15(19,19,13);
+    SPRITE_PALETTE_SUB[174] = RGB15(22,22,2);
+    SPRITE_PALETTE_SUB[175] = RGB15(19,19,19);
+    SPRITE_PALETTE_SUB[176] = RGB15(3,20,2);
+    SPRITE_PALETTE_SUB[177] = RGB15(3,18,2);
+    SPRITE_PALETTE_SUB[178] = RGB15(11,24,11);
+    SPRITE_PALETTE_SUB[179] = RGB15(4,18,4);
+    SPRITE_PALETTE_SUB[180] = RGB15(22,22,4);
+    SPRITE_PALETTE_SUB[181] = RGB15(20,20,11);
+    SPRITE_PALETTE_SUB[182] = RGB15(12,17,11);
+    SPRITE_PALETTE_SUB[183] = RGB15(21,21,4);
+    SPRITE_PALETTE_SUB[184] = RGB15(20,20,10);
+    SPRITE_PALETTE_SUB[185] = RGB15(12,16,11);
+    SPRITE_PALETTE_SUB[186] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[187] = RGB15(21,21,4);
+    SPRITE_PALETTE_SUB[188] = RGB15(20,20,11);
+    SPRITE_PALETTE_SUB[189] = RGB15(12,16,12);
+    SPRITE_PALETTE_SUB[190] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[191] = RGB15(13,27,13);
+    SPRITE_PALETTE_SUB[192] = RGB15(10,23,10);
+    SPRITE_PALETTE_SUB[193] = RGB15(4,20,3);
+    SPRITE_PALETTE_SUB[194] = RGB15(6,20,6);
+    SPRITE_PALETTE_SUB[195] = RGB15(4,19,3);
+    SPRITE_PALETTE_SUB[196] = RGB15(13,26,13);
+    SPRITE_PALETTE_SUB[197] = RGB15(3,18,2);
+    SPRITE_PALETTE_SUB[198] = RGB15(3,20,1);
+    SPRITE_PALETTE_SUB[199] = RGB15(3,18,2);
+    SPRITE_PALETTE_SUB[200] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[201] = RGB15(5,18,4);
+    SPRITE_PALETTE_SUB[202] = RGB15(3,19,2);
+    SPRITE_PALETTE_SUB[203] = RGB15(2,15,2);
+    SPRITE_PALETTE_SUB[204] = RGB15(2,14,1);
+    SPRITE_PALETTE_SUB[205] = RGB15(2,15,1);
+    SPRITE_PALETTE_SUB[206] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[207] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[208] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[209] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[210] = RGB15(2,14,2);
+    SPRITE_PALETTE_SUB[211] = RGB15(2,17,1);
+    SPRITE_PALETTE_SUB[212] = RGB15(9,15,9);
+    SPRITE_PALETTE_SUB[213] = RGB15(16,16,16);
+    SPRITE_PALETTE_SUB[214] = RGB15(2,16,1);
+    SPRITE_PALETTE_SUB[215] = RGB15(11,15,10);
+    SPRITE_PALETTE_SUB[216] = RGB15(2,15,1);
+    SPRITE_PALETTE_SUB[217] = RGB15(2,14,2);
+
+// Colores mesa normal
+    SPRITE_PALETTE_SUB[218] = RGB15(0,0,0);
+    SPRITE_PALETTE_SUB[219] = RGB15(19,19,19);
+    SPRITE_PALETTE_SUB[220] = RGB15(0,0,0);
+    SPRITE_PALETTE_SUB[221] = RGB15(11,28,31);
+    SPRITE_PALETTE_SUB[222] = RGB15(0,27,31);
+    SPRITE_PALETTE_SUB[223] = RGB15(0,23,31);
+
+// EXPERIMENTAL
+    SPRITE_PALETTE_SUB[224] = RGB15(255,255,0);
+    SPRITE_PALETTE_SUB[225] = RGB15(0,255,255);
+    SPRITE_PALETTE_SUB[226] = RGB15(255,0,255);
+    SPRITE_PALETTE_SUB[227] = RGB15(0,255,0);
+    SPRITE_PALETTE_SUB[228] = RGB15(255,0,0);
+    SPRITE_PALETTE_SUB[229] = RGB15(124,252,0);
 }
 
 /* Definición de un sprite de 16x16 píxeles para dibujar un rombo */
@@ -317,19 +563,25 @@ int j;
 	for(i = 0; i < 32 * 32 / 2; i++) 
 	{	
 		gfxBillete[i] = billete[i*2] | (billete[(i*2)+1]<<8);
+       // gfxBilleteSub[i] = billete[i*2] | (billete[(i*2)+1]<<8);
 	}
     for (j = 0; j < 64 * 32 / 2; j++ ){
         gfxMesaNormal[j] = mesaNormal[j*2] | (mesaNormal[(j*2)+1]<<8);
+        gfxMesaNormalSub[j] = mesaNormal[j*2] | (mesaNormal[(j*2)+1]<<8);
         gfxMesaCorrecta[j] = mesaCorrecta[j*2] | (mesaCorrecta[(j*2)+1]<<8);
+        //gfxMesaCorrectaSub[j] = mesaCorrecta[j*2] | (mesaCorrecta[(j*2)+1]<<8);
         gfxMesaIncorrecta[j] = mesaIncorrecta[j*2] | (mesaIncorrecta[(j*2)+1]<<8);
+        //gfxMesaIncorrectaSub[j] = mesaIncorrecta[j*2] | (mesaIncorrecta[(j*2)+1]<<8);
         gfxMesaDebug[j] = mesaDebug[j*2] | (mesaDebug[(j*2)+1]<<8);
+        gfxMesaDebugSub[j] = mesaDebug[j*2] | (mesaDebug[(j*2)+1]<<8);
     }
+
+
 
 
 }
 
-
-void mostrarBillete(int indice, int x, int y){
+void mostrarBilleteIncorrecto(int indice, int x, int y, int tipo_respuesta ){
     oamSet(&oamMain, // main graphics engine context
            indice,           // oam index (0 to 127)
            x, y,   // x and y pixel location of the sprite
@@ -338,14 +590,49 @@ void mostrarBillete(int indice, int x, int y){
            SpriteSize_32x32,
            SpriteColorFormat_256Color,
            gfxBillete,// +16*16/2,                  // pointer to the loaded graphics
-           indice,                  // sprite rotation data
+           8,                  // 8 para respuestas equivocadas y 9 para la correcta
            true,               // double the size when rotating?
            false,			// hide the sprite?
            false, false, // vflip, hflip
            false	// apply mosaic
     );
     oamUpdate(&oamMain);
+}
 
+void mostrarBilleteCorrecto(int indice, int x, int y, int tipo_respuesta ){
+    oamSet(&oamMain, // main graphics engine context
+           indice,           // oam index (0 to 127)
+           x, y,   // x and y pixel location of the sprite
+           0,                    // priority, lower renders last (on top)
+           0,					  // this is the palette index if multiple palettes or the alpha value if bmp sprite
+           SpriteSize_32x32,
+           SpriteColorFormat_256Color,
+           gfxBillete,// +16*16/2,                  // pointer to the loaded graphics
+           9,                  // 8 para respuestas equivocadas y 9 para la correcta
+           true,               // double the size when rotating?
+           false,			// hide the sprite?
+           false, false, // vflip, hflip
+           false	// apply mosaic
+    );
+    oamUpdate(&oamMain);
+}
+
+void ocultarBillete(int indice, int x, int y){
+    oamSet(&oamMain, // main graphics engine context
+           indice,           // oam index (0 to 127)
+           x, y,   // x and y pixel location of the sprite
+           0,                    // priority, lower renders last (on top)
+           0,					  // this is the palette index if multiple palettes or the alpha value if bmp sprite
+           SpriteSize_32x32,
+           SpriteColorFormat_256Color,
+           gfxBillete,// +16*16/2,                  // pointer to the loaded graphics
+           8,                  // sprite rotation data
+           true,               // double the size when rotating?
+           true,			// hide the sprite?
+           false, false, // vflip, hflip
+           false	// apply mosaic
+    );
+    oamUpdate(&oamMain);
 }
 
 void mostrarMesaNormal(int indice, int x, int y){
@@ -364,6 +651,25 @@ void mostrarMesaNormal(int indice, int x, int y){
            false	// apply mosaic
     );
     oamUpdate(&oamMain);
+
+}
+
+void mostrarMesaNormalSub(int indice, int x, int y){
+    oamSet(&oamSub, // main graphics engine context
+           indice,           // oam index (0 to 127)
+           x, y,   // x and y pixel location of the sprite
+           1,                    // priority, lower renders last (on top)
+           0,					  // this is the palette index if multiple palettes or the alpha value if bmp sprite
+           SpriteSize_64x32,
+           SpriteColorFormat_256Color,
+           gfxMesaNormalSub,// +16*16/2,                  // pointer to the loaded graphics
+           indice,                  // sprite rotation data
+           true,               // double the size when rotating?
+           false,			// hide the sprite?
+           false, false, // vflip, hflip
+           false	// apply mosaic
+    );
+    oamUpdate(&oamSub);
 
 }
 
@@ -423,11 +729,33 @@ void mostrarMesaDebug(int indice, int x, int y){
     oamUpdate(&oamMain);
 }
 
+void mostrarMesaDebugSub(int indice, int x, int y){
+    oamSet(&oamSub, // main graphics engine context
+           indice,           // oam index (0 to 127)
+           x, y,   // x and y pixel location of the sprite
+           1,                    // priority, lower renders last (on top)
+           0,					  // this is the palette index if multiple palettes or the alpha value if bmp sprite
+           SpriteSize_64x32,
+           SpriteColorFormat_256Color,
+           gfxMesaDebugSub,// +16*16/2,                  // pointer to the loaded graphics
+           indice,                  // sprite rotation data
+           true,               // double the size when rotating?
+           false,			// hide the sprite?
+           false, false, // vflip, hflip
+           false	// apply mosaic
+    );
+    oamUpdate(&oamSub);
+}
+
 void mostrarMesas(){
     mostrarMesaNormal(0,4,16);
     mostrarMesaNormal(1,120,16);
     mostrarMesaNormal(2,4,112);
     mostrarMesaNormal(3,120,112);
+    mostrarMesaNormalSub(4,4,40);
+    mostrarMesaNormalSub(5,120,40);
+    mostrarMesaNormalSub(6,4,116);
+    mostrarMesaNormalSub(7,120,116);
     // Animacion de billetes cayendo
     //oamRotateScale(&oamMain, 5, 45, 150 + 100 * tick, 150 + 100 * tick);
     // oamUpdate(&oamMain);
@@ -439,6 +767,14 @@ void mostrarMesas(){
     oamUpdate(&oamMain);
     oamRotateScale(&oamMain,3,1,160,80);
     oamUpdate(&oamMain);
+    oamRotateScale(&oamSub,4,1,160,80);
+    oamUpdate(&oamSub);
+    oamRotateScale(&oamSub,5,1,160,80);
+    oamUpdate(&oamSub);
+    oamRotateScale(&oamSub,6,1,160,80);
+    oamUpdate(&oamSub);
+    oamRotateScale(&oamSub,7,1,160,80);
+    oamUpdate(&oamSub);
 }
 
 void borrarMesaIncorrecta(int indice, int x, int y){
@@ -508,15 +844,60 @@ void mostrarMesasResuelto(int indiceCorrecto, int mesaXpos[4], int mesaYpos[4]){
     }
 }
 
-void ponerBilletes(int billetesMesa[4], int mesaXpos[4], int mesaYpos[4]){
+void quitarBilletes(int billetesMesa[4], int mesaXpos[4], int mesaYpos[4], int indCorrecta){
     int i;
     int j;
     for (i = 0; i<4;i++){
-        for (j = 0; j < billetesMesa[i];j++){
-            mostrarBillete(5+j+(i*10),mesaXpos[i]+(j*2),mesaYpos[i]+(j*2));
+        if (i!=indCorrecta) {
+            for (j = 1; j <= billetesMesa[i]; j++) {
+                ocultarBillete(5 + j + (i * 10), mesaXpos[i] + (j * 2), mesaYpos[i] + (j * 2));
+            }
         }
     }
 }
+
+void quitarBilletesCorrecta(int billetesMesa[4], int mesaXpos[4], int mesaYpos[4], int indCorrecta){
+    int i;
+    int j;
+    for (i = 0; i<4;i++){
+        if (i==indCorrecta) {
+            for (j = 1; j <= billetesMesa[i]; j++) {
+                ocultarBillete(5 + j + (i * 10), mesaXpos[i] + (j * 2), mesaYpos[i] + (j * 2));
+            }
+        }
+    }
+}
+
+void mostrarBilleteSub(int indice, int x, int y){
+    oamSet(&oamSub, // main graphics engine context
+           indice,           // oam index (0 to 127)
+           x, y,   // x and y pixel location of the sprite
+           0,                    // priority, lower renders last (on top)
+           0,					  // this is the palette index if multiple palettes or the alpha value if bmp sprite
+           SpriteSize_32x32,
+           SpriteColorFormat_256Color,
+           gfxBilleteSub,// +16*16/2,                  // pointer to the loaded graphics
+           indice,                  // sprite rotation data
+           true,               // double the size when rotating?
+           false,			// hide the sprite?
+           false, false, // vflip, hflip
+           false	// apply mosaic
+    );
+    oamUpdate(&oamSub);
+}
+
+void caerBilletes(int tick){
+    oamRotateScale(&oamMain, 8, 1, 256 + 100 * tick * 2, 256 + 100 * tick * 2);
+    oamUpdate(&oamMain);
+}
+
+void resetBilletes(){
+    oamRotateScale(&oamMain, 8, 1, 256, 256);
+    oamRotateScale(&oamMain, 9, 1, 256, 256);
+    oamUpdate(&oamMain);
+}
+
+
 
 
 

@@ -6,3 +6,4 @@ fondos.h
 
 extern void visualizarFondoUno();
 extern void cargarFondoMain();
+
