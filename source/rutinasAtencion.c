@@ -23,7 +23,7 @@ int BilletesMesa[4] = {0};
 int mesaXpos[8] = {4,120,4,120,4,120,4,120};
 int mesaYpos[8] = {16,16,112,112,40,40,116,116};
 int indCaja;
-int ronda = 11;
+int ronda = 1;
 static int seg = 45;
 static int seg5 = 0;
 
@@ -47,7 +47,7 @@ void printEstadoCajas(){
     iprintf("\x1b[%d;%dH %d$", 13, 5,DineroCajas[0]);
     iprintf("\x1b[%d;%dH %d$", 13, 19,DineroCajas[1]);
     iprintf("\x1b[%d;%dH %d$", 23, 5,DineroCajas[2]);
-	iprintf("\x1b[%d;%dH %d$", 23, 19,DineroCajas[3]);
+    iprintf("\x1b[%d;%dH %d$", 23, 19,DineroCajas[3]);
 }
 
 bool estaCajaVacia(int *dineroCaja){
