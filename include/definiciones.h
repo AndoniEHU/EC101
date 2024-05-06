@@ -50,3 +50,7 @@ touchPosition PANT_DAT;
 #define RESUELTO 3
 #define FINAL 4
 extern int ESTADO;
+
+extern int mesaXpos[8];
+extern int mesaYpos[8];
+

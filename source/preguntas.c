@@ -2,8 +2,10 @@
 preguntas.c
 -------------------------------------*/
 #include <stdlib.h>
-#include "preguntas.h"
+#include <time.h>
 #include <string.h>
+#include "preguntas.h"
+
 
 struct pregunta preguntas[10];
 
@@ -83,18 +85,17 @@ void inicializarPreguntas(){
 
 }
 
-/*void aleatorizarPreguntas(){
+void aleatorizarPreguntas(){
 
 	int i;
 	int randInd1;
-	int randInd2;
 	struct pregunta aux;
-	for (i=0;i<sizeof(preguntas);i++){
-		randInd1 = (rand() % sizeof(preguntas)-1);
-		randInd2 = (rand() % sizeof(preguntas)-1);
-		aux = preguntas[randInd1];
-		preguntas[randInd1] = preguntas[randInd2];
-		preguntas[randInd2] = aux;
+    srand(time(NULL));
+    for (i=0;i<9;i++){
+		randInd1 = (rand() % 10);
+		aux = preguntas[i];
+		preguntas[i] = preguntas[randInd1];
+		preguntas[randInd1] = aux;
 	}
 
-}*/
+}

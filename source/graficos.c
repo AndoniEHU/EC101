@@ -15,11 +15,12 @@ void inicializarVideo() {
 
     vramSetMainBanks(VRAM_A_MAIN_BG_0x06000000,
                      VRAM_B_MAIN_BG_0x06020000,
-                     VRAM_C_SUB_BG_0x06200000,
+                     VRAM_C_SUB_BG,
                      VRAM_E_LCD);
 
     vramSetBankE(VRAM_E_MAIN_SPRITE);
     vramSetBankD(VRAM_D_SUB_SPRITE);
+
 
     /* Modo de vídeo para la pantalla principal */
     videoSetMode(MODE_5_2D | // Modo de vídeo 5
@@ -110,7 +111,7 @@ void inicializarGraficos()
 void initSpriteMem() {
 
 	oamInit(&oamMain, SpriteMapping_1D_32, false);
-	oamInit(&oamSub, SpriteMapping_1D_32, false);
+	oamInit(&oamSub, SpriteMapping_1D_128, false);
 }
 
 void inicializarGraficosSprites()

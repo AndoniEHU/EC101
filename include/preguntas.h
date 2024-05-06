@@ -15,4 +15,4 @@ extern struct pregunta preguntas[10];
 
 extern void inicializarPreguntas();
 
-//extern void aleatorizarPreguntas();
+extern void aleatorizarPreguntas();
