@@ -21,6 +21,7 @@ y en otro ejemplo de Jaeden Ameronen
 int tiempo;
 void juego()
 {
+    mostrarInicio();
 	ConfigurarTemporizador(0x100,0xC1);
 	ConfigurarTeclado(0x4005);
 	EstablecerVectorInt();

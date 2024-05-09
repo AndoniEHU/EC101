@@ -42,3 +42,4 @@ extern void borrarMesas(int mesaXpos[4], int mesaYpos[4]);
 extern void quitarBilletesCorrecta(int billetesMesa[4], int mesaXpos[4], int mesaYpos[4], int indCorrecta);
 extern void resetBilletes();
 extern void billetesFinal(int tick, int BilletesMesa);
+extern void mostrarBilletesAleatorios(int indice, int x, int y, bool mostrar);

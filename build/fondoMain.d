@@ -1,1 +1,0 @@
-fondoMain.o: fondoMain.s

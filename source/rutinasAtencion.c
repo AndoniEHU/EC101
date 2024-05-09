@@ -28,6 +28,32 @@ bool poderModificarDinero = true;
 static int seg = 45;
 static int seg5 = 0;
 
+void mostrarInicio(){
+    int i;
+    cargarFondoInicio();
+    iprintf("\x1b[%d;%dH %s", 4, 0,"Bienvenido a atrapa un millon!");
+    iprintf("\x1b[%d;%dH %s", 6, 10,"CONTROLES");
+    iprintf("\x1b[%d;%dH%s", 8, 0,"- Pulsa en la caja para elegir");
+    iprintf("\x1b[%d;%dH%s", 10, 0,"- R para poner dinero en caja");
+    iprintf("\x1b[%d;%dH%s", 12, 0,"- L para quitar el dinero");
+    iprintf("\x1b[%d;%dH%s", 14, 0,"- START para confirmar respuesta");
+    iprintf("\x1b[%d;%dH%s", 18, 3,"Pulsa SELECT para comenzar!");
+    while(TeclaPulsada()!=SELECT){
+        mostrarBilletesAleatorios(64,0+i,-15,true);
+        mostrarBilletesAleatorios(65,190-i,-15,true);
+        mostrarBilletesAleatorios(66,0+i,140,true);
+        mostrarBilletesAleatorios(67,190-i,140,true);
+        i++;
+        if (i==190){
+            i=0;
+        }
+    }
+    mostrarBilletesAleatorios(64,0+i,-15,false);
+    mostrarBilletesAleatorios(65,190-i,-15,false);
+    mostrarBilletesAleatorios(66,0+i,140,false);
+    mostrarBilletesAleatorios(67,190-i,140,false);
+}
+
 
 int seleccionCaja(int px,int py){
     if (ESTADO!=FINAL) {
@@ -37,6 +63,13 @@ int seleccionCaja(int px,int py){
         if ((px >= 136 && px <= 224) && (py >= 116 && py <= 164)) return 3;
     }
     return -1;
+}
+void mostrarTiempo(){
+    if (seg>=10){
+        printf("0:%d        ",seg);
+    } else {
+        printf("0:0%d        ",seg);
+    }
 }
 
 void printEstadoCajas(){
@@ -208,7 +241,7 @@ void RutAtencionTempo() {
 
     if (ESTADO != FINAL && seg>=0) {
         consoleClear();
-        printf("0:%d        ",seg);
+        mostrarTiempo();
         if (tick==8 && seg>0){
             seg--;
             tick=0;

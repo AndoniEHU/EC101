@@ -3,7 +3,7 @@
 /*-------------------------------------
 rutinasAtencion.h
 -------------------------------------*/
-
+extern void mostrarInicio();
 extern void RutAtencionTeclado ();
 extern void RutAtencionTempo();
 extern void EstablecerVectorInt();

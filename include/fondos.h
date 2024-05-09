@@ -3,6 +3,6 @@
 /*-------------------------------------
 fondos.h
 -------------------------------------*/
-
+extern void cargarFondoInicio();
 extern void cargarFondoMain();
 extern void visualizarFin();

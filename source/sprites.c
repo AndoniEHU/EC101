@@ -959,7 +959,7 @@ void resetBilletes(){
 }
 
 
-void mostrarBilletesAleatorios(int indice, int x, int y){
+void mostrarBilletesAleatorios(int indice, int x, int y, bool mostrar){
     oamSet(&oamSub,
            indice,
            x, y,
@@ -970,7 +970,7 @@ void mostrarBilletesAleatorios(int indice, int x, int y){
            gfxBilleteSub,
            10,
            true,
-           false,
+           !mostrar,
            false, false,
            false
     );
@@ -987,7 +987,7 @@ void billetesFinal(int tick, int BilletesMesa){
         for (i=0;i<=BilletesMesa;i++) {
             int px = (rand() % 180)+20; // +20 para evitar que aparezcan billetes por los bordes
             int py = (rand() % 120)+20; //
-            mostrarBilletesAleatorios((2*i)+8,px,py);
+            mostrarBilletesAleatorios((2*i)+8,px,py,true);
         }
     }
     oamRotateScale(&oamSub, 10, 1, 256 + 100 * tick * 2, 256 + 100 * tick * 2);

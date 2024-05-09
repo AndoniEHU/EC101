@@ -10,16 +10,16 @@
 #include "graficos.h"
 #include "fondoFinal.h"
 #include "fondoMain.h"
+#include "fondoInicio.h"
 
 /* Se elige el canal de DMA que se utilizará para copiar las imágenes en memoria */
 static const int DMA_CHANNEL = 3;
 
-
-void visualizarFin(){
+void cargarFondoInicio(){
     dmaCopyHalfWords(DMA_CHANNEL,
-                     fondoFinalBitmap, /* Variable que se genera automáticamente */
+                     fondoInicioBitmap, /* Variable que se genera automáticamente */
                      (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
-                     fondoFinalBitmapLen);
+                     fondoInicioBitmapLen);
 }
 
 void cargarFondoMain(){
@@ -27,4 +27,11 @@ void cargarFondoMain(){
                      fondoMainBitmap, /* Variable que se genera automáticamente */
                      (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
                      fondoMainBitmapLen);
+}
+
+void visualizarFin(){
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     fondoFinalBitmap, /* Variable que se genera automáticamente */
+                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
+                     fondoFinalBitmapLen);
 }
