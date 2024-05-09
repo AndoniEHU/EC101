@@ -11,7 +11,7 @@ struct pregunta {
 };
 #endif
 
-extern struct pregunta preguntas[10];
+extern struct pregunta preguntas[50];
 
 extern void inicializarPreguntas();
 

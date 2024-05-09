@@ -1,0 +1,1 @@
+fondoFinal.o: fondoFinal.s

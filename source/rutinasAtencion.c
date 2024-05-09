@@ -24,6 +24,7 @@ int mesaXpos[8] = {4,120,4,120,4,120,4,120};
 int mesaYpos[8] = {16,16,112,112,40,40,116,116};
 int indCaja;
 int ronda = 1;
+bool poderModificarDinero = true;
 static int seg = 45;
 static int seg5 = 0;
 
@@ -128,22 +129,23 @@ void mostrarFinal(int tick){
 
 void RutAtencionTeclado ()
 {
-    touchRead(&PANT_DAT);
-
+    
     if (ESTADO == SELCAJA) {
         if (TeclaPulsada() == B) {
             ESTADO = RESOLVIENDO;
             mostrarMesas(mesaXpos,mesaYpos);
         }
-        if (TeclaPulsada() == L && estaCajaVacia(&DineroCajas[indCaja])) {
+        if (TeclaPulsada() == L && estaCajaVacia(&DineroCajas[indCaja]) && poderModificarDinero==true) {
             restarDineroCaja(&DineroCajas[indCaja],&Dinero);
             ocultarBillete(5+BilletesMesa[indCaja]+indCaja*10,mesaXpos[indCaja]+BilletesMesa[indCaja]*2,mesaYpos[indCaja]+BilletesMesa[indCaja]*2);
             BilletesMesa[indCaja] = BilletesMesa[indCaja] - 1;
+            poderModificarDinero=false;
             mostrarRestaDinero(indCaja);
         }
-        if (TeclaPulsada() == R && estaDineroTotalVacio(&Dinero)) {
+        if (TeclaPulsada() == R && estaDineroTotalVacio(&Dinero) && poderModificarDinero==true) {
             sumarDineroCaja(&DineroCajas[indCaja],&Dinero);
             BilletesMesa[indCaja] = BilletesMesa[indCaja] + 1;
+            poderModificarDinero=false;
             mostrarSumaDinero(indCaja);
             if (indCaja==preguntas[ronda-1].indCorrecta){
                 mostrarBilleteCorrectoPorMesa(indCaja,BilletesMesa[indCaja]);
@@ -194,9 +196,14 @@ void RutAtencionTeclado ()
 void RutAtencionTempo() {
     static int tick = 0;
     tick++;
+    touchRead(&PANT_DAT);
 
     if (ESTADO==FINAL){
         mostrarFinal(tick%11);
+    }
+
+    if(ESTADO==SELCAJA && tick%2==0){
+        poderModificarDinero=true;
     }
 
     if (ESTADO != FINAL && seg>=0) {
