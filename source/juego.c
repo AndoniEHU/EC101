@@ -16,33 +16,27 @@ y en otro ejemplo de Jaeden Ameronen
 #include "perifericos.h"
 #include "rutinasAtencion.h"
 #include "fondos.h"
+#include "preguntas.h"
 
 int tiempo;
-
 void juego()
-{	
-	// Definiciones de variables
-	int tecla=0;
-
-	ESTADO=PREGUNTA;
-	mostrarMesas();
-
+{
 	ConfigurarTemporizador(0x100,0xC1);
 	ConfigurarTeclado(0x4005);
 	EstablecerVectorInt();
 	HabilitarIntTeclado();
 	HabilitarIntTempo();
+    aleatorizarPreguntas();
+    ESTADO=PREGUNTA;
 
 	while(1)
 	{
         if (ESTADO == PREGUNTA) {
             cargarFondoMain();
-            mostrarMesas();
+            mostrarMesas(mesaXpos,mesaYpos);
             ESTADO=RESOLVIENDO;
         }
 	}
-	InhibirIntTeclado();
-	HabilitarIntTempo();
 }
 
 

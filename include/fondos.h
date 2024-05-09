@@ -4,5 +4,5 @@
 fondos.h
 -------------------------------------*/
 
-extern void visualizarFondoUno();
 extern void cargarFondoMain();
+extern void visualizarFin();
