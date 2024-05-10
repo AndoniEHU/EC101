@@ -20,7 +20,6 @@ u16* gfxMesaElegida;
 u16* gfxMesaElegidaSub;
 
 
-
 /* Reservar memoria para cada sprite que se quiera mostrar en pantalla */
 void memoriaReserva()
 {
@@ -262,7 +261,7 @@ void EstablecerPaleta() {
     SPRITE_PALETTE[216] = RGB15(2,15,1);
     SPRITE_PALETTE[217] = RGB15(2,14,2);
 
-    // Colores mesa normal
+
     SPRITE_PALETTE[218] = RGB15(0,0,0);
     SPRITE_PALETTE[219] = RGB15(19,19,19);
     SPRITE_PALETTE[220] = RGB15(0,0,0);
@@ -270,7 +269,7 @@ void EstablecerPaleta() {
     SPRITE_PALETTE[222] = RGB15(0,27,31);
     SPRITE_PALETTE[223] = RGB15(0,23,31);
 
-    // EXPERIMENTAL
+
     SPRITE_PALETTE[224] = RGB15(31,31,0);
     SPRITE_PALETTE[225] = RGB15(0,31,31);
     SPRITE_PALETTE[226] = RGB15(31,0,31);
@@ -497,11 +496,6 @@ void EstablecerPaleta() {
     SPRITE_PALETTE_SUB[216] = RGB15(2,15,1);
     SPRITE_PALETTE_SUB[217] = RGB15(2,14,2);
 
-// Colores mesa normal
-
-    //SPRITE_PALETTE_SUB[219] = RGB15(19,19,19);
-    //SPRITE_PALETTE_SUB[218] = RGB15(0,0,0);
-    //SPRITE_PALETTE_SUB[224] = RGB15(31,31,0);
 
     SPRITE_PALETTE_SUB[218] = RGB15(0,0,0);
     SPRITE_PALETTE_SUB[219] = RGB15(19,19,19);
@@ -510,7 +504,7 @@ void EstablecerPaleta() {
     SPRITE_PALETTE_SUB[222] = RGB15(0,27,31);
     SPRITE_PALETTE_SUB[223] = RGB15(0,23,31);
 
-// EXPERIMENTAL
+
     SPRITE_PALETTE_SUB[224] = RGB15(31,31,0);
     SPRITE_PALETTE_SUB[225] = RGB15(0,31,31);
     SPRITE_PALETTE_SUB[226] = RGB15(31,0,31);
@@ -959,7 +953,7 @@ void resetBilletes(){
 }
 
 
-void mostrarBilletesAleatorios(int indice, int x, int y){
+void mostrarBilletesAleatorios(int indice, int x, int y, bool mostrar){
     oamSet(&oamSub,
            indice,
            x, y,
@@ -970,7 +964,7 @@ void mostrarBilletesAleatorios(int indice, int x, int y){
            gfxBilleteSub,
            10,
            true,
-           false,
+           !mostrar,
            false, false,
            false
     );
@@ -987,7 +981,7 @@ void billetesFinal(int tick, int BilletesMesa){
         for (i=0;i<=BilletesMesa;i++) {
             int px = (rand() % 180)+20; // +20 para evitar que aparezcan billetes por los bordes
             int py = (rand() % 120)+20; //
-            mostrarBilletesAleatorios((2*i)+8,px,py);
+            mostrarBilletesAleatorios((2*i)+8,px,py,true);
         }
     }
     oamRotateScale(&oamSub, 10, 1, 256 + 100 * tick * 2, 256 + 100 * tick * 2);
