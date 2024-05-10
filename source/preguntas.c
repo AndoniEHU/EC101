@@ -295,7 +295,7 @@ strcpy(preguntas[36].respuestas[3], "40");
 preguntas[36].indCorrecta = 1;
 
 
-strcpy(preguntas[37].pregunta, "Cuantas Champions tiene el Barca?");
+strcpy(preguntas[37].pregunta, "Cuantas Champions tiene\n el Barca?");
 strcpy(preguntas[37].respuestas[0], "5");
 strcpy(preguntas[37].respuestas[1], "6");
 strcpy(preguntas[37].respuestas[2], "4");
@@ -323,7 +323,7 @@ strcpy(preguntas[40].respuestas[0], "Elden\n      Ring");
 strcpy(preguntas[40].respuestas[1], "GTA-V");
 strcpy(preguntas[40].respuestas[2], "Wii\n     Sports");
 strcpy(preguntas[40].respuestas[3], "Pong");
-preguntas[40].indCorrecta = 3;
+preguntas[40].indCorrecta = 1;
 
 
 strcpy(preguntas[41].pregunta, "De que grupo era\n el guitarrista Brian May?");
@@ -333,7 +333,7 @@ strcpy(preguntas[41].respuestas[2], "ACDC");
 strcpy(preguntas[41].respuestas[3], "U2");
 preguntas[41].indCorrecta = 1;
 
-strcpy(preguntas[42].pregunta, "Cuantos bytes son 1 TeraByte?");
+strcpy(preguntas[42].pregunta, "Cuantos bits son 1 TeraByte?");
 strcpy(preguntas[42].respuestas[0], "6000000");
 strcpy(preguntas[42].respuestas[1], "8000000");
 strcpy(preguntas[42].respuestas[2], "600000");

@@ -37,6 +37,7 @@ void mostrarInicio(){
     iprintf("\x1b[%d;%dH%s", 10, 0,"- R para poner dinero en caja");
     iprintf("\x1b[%d;%dH%s", 12, 0,"- L para quitar el dinero");
     iprintf("\x1b[%d;%dH%s", 14, 0,"- START para confirmar respuesta");
+    iprintf("\x1b[%d;%dH%s", 16, 0,"- B para deseleccionar la caja");
     iprintf("\x1b[%d;%dH%s", 18, 3,"Pulsa SELECT para comenzar!");
     while(TeclaPulsada()!=SELECT){
         mostrarBilletesAleatorios(64,0+i,-15,true);
@@ -188,7 +189,7 @@ void RutAtencionTeclado ()
         }
     }
 
-    if ((TeclaPulsada() == START) && ESTADO!=FINAL){
+    if ((TeclaPulsada()==START) && ESTADO!=FINAL){
         ESTADO=RESUELTO;
         seg=0;
     }
@@ -294,7 +295,6 @@ void EstablecerVectorInt()
 {
 // A COMPLETAR
 	irqSet(0x4001,RutAtencionTeclado);
-	irqSet(0x8,RutAtencionTempo);
-	
+	irqSet(IRQ_TIMER0,RutAtencionTempo);
 }
 
