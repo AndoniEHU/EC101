@@ -44,11 +44,12 @@ touchPosition PANT_DAT;
 #define L			9
 
 // Nombres asignados a los estados
-#define PREGUNTA 0
-#define RESOLVIENDO 1
-#define SELCAJA 2
-#define RESUELTO 3
-#define FINAL 4
+#define INICIO 0
+#define PREGUNTA 1
+#define RESOLVIENDO 2
+#define SELCAJA 3
+#define RESUELTO 4
+#define FINAL 5
 extern int ESTADO;
 
 extern int mesaXpos[8];

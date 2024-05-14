@@ -147,7 +147,7 @@ strcpy(preguntas[18].respuestas[0], "Aguero");
 strcpy(preguntas[18].respuestas[1], "Ayuno");
 strcpy(preguntas[18].respuestas[2], "Atun");
 strcpy(preguntas[18].respuestas[3], "Ambiguo");
-preguntas[18].indCorrecta = 3;
+preguntas[18].indCorrecta = 0;
 
 
 strcpy(preguntas[19].pregunta, "De que deporte es campeon\n mundial Magnus Carlsen?");
@@ -276,7 +276,7 @@ strcpy(preguntas[34].respuestas[0], "1984");
 strcpy(preguntas[34].respuestas[1], "Dune");
 strcpy(preguntas[34].respuestas[2], "You");
 strcpy(preguntas[34].respuestas[3], "Nada");
-preguntas[34].indCorrecta = 2;
+preguntas[34].indCorrecta = 0;
 
 
 strcpy(preguntas[35].pregunta, "Con que dorsal se\n retiro Kobe Bryant?");
@@ -395,14 +395,18 @@ preguntas[49].indCorrecta = 3;
 }
 
 void aleatorizarPreguntas(){
+    int lastRandInt = 0;
 	int i;
 	int randInd1;
 	struct pregunta aux;
     srand(time(NULL));
     for (i=0;i<50;i++){
         randInd1 = (rand() % 10);
-        aux = preguntas[i];
-		preguntas[i] = preguntas[randInd1];
-		preguntas[randInd1] = aux;
+        if (lastRandInt!=randInd1) {
+            aux = preguntas[i];
+            preguntas[i] = preguntas[randInd1];
+            preguntas[randInd1] = aux;
+            lastRandInt=randInd1;
+        }
 	}
 }

@@ -23,7 +23,7 @@ int BilletesMesa[4] = {0};
 int mesaXpos[8] = {4,120,4,120,4,120,4,120};
 int mesaYpos[8] = {16,16,112,112,40,40,116,116};
 int indCaja;
-int ronda = 1;
+int ronda = 9;
 bool poderModificarDinero = true;
 static int seg = 45;
 static int seg5 = 0;
@@ -39,6 +39,7 @@ void mostrarInicio(){
     iprintf("\x1b[%d;%dH%s", 14, 0,"- START para confirmar respuesta");
     iprintf("\x1b[%d;%dH%s", 16, 0,"- B para deseleccionar la caja");
     iprintf("\x1b[%d;%dH%s", 18, 3,"Pulsa SELECT para comenzar!");
+    printf("ESTADO=%d",ESTADO);
     while(TeclaPulsada()!=SELECT){
         mostrarBilletesAleatorios(64,0+i,-15,true);
         mostrarBilletesAleatorios(65,190-i,-15,true);
@@ -53,11 +54,12 @@ void mostrarInicio(){
     mostrarBilletesAleatorios(65,190-i,-15,false);
     mostrarBilletesAleatorios(66,0+i,140,false);
     mostrarBilletesAleatorios(67,190-i,140,false);
+    ESTADO=PREGUNTA;
 }
 
 
 int seleccionCaja(int px,int py){
-    if (ESTADO!=FINAL) {
+    if (ESTADO!=FINAL || ESTADO!=INICIO) {
         if ((px >= 30 && px <= 120) && (py >= 30 && py <= 80)) return 0;
         if ((px >= 136 && px <= 224) && (py >= 30 && py <= 80)) return 1;
         if ((px >= 30 && px <= 120) && (py >= 116 && py <= 164)) return 2;
@@ -163,12 +165,13 @@ void mostrarFinal(int tick){
 
 void RutAtencionTeclado ()
 {
-    
+    //mostrar mesas e interrupcion si se pulsa B para poder seleccionar otra caja
     if (ESTADO == SELCAJA) {
         if (TeclaPulsada() == B) {
             ESTADO = RESOLVIENDO;
             mostrarMesas(mesaXpos,mesaYpos);
         }
+        //Si se pulsa L y se queda dinero en la caja: se le quita el dinero a la caja y se pasa al dinero global
         if (TeclaPulsada() == L && estaCajaVacia(&DineroCajas[indCaja]) && poderModificarDinero==true) {
             restarDineroCaja(&DineroCajas[indCaja],&Dinero);
             ocultarBillete(5+BilletesMesa[indCaja]+indCaja*10,mesaXpos[indCaja]+BilletesMesa[indCaja]*2,mesaYpos[indCaja]+BilletesMesa[indCaja]*2);
@@ -176,11 +179,13 @@ void RutAtencionTeclado ()
             poderModificarDinero=false;
             mostrarRestaDinero(indCaja);
         }
+        //Si se pulsa R y se queda dinero globar: se le quita el dinero global y se pasa al dinero de la caja
         if (TeclaPulsada() == R && estaDineroTotalVacio(&Dinero) && poderModificarDinero==true) {
             sumarDineroCaja(&DineroCajas[indCaja],&Dinero);
             BilletesMesa[indCaja] = BilletesMesa[indCaja] + 1;
             poderModificarDinero=false;
             mostrarSumaDinero(indCaja);
+            //si la mesa se elige es incorrecta/correcta se pasa un id distintivo de rotacion para los billetes
             if (indCaja==preguntas[ronda-1].indCorrecta){
                 mostrarBilleteCorrectoPorMesa(indCaja,BilletesMesa[indCaja]);
             } else {
@@ -188,13 +193,13 @@ void RutAtencionTeclado ()
             }
         }
     }
-
-    if ((TeclaPulsada()==START) && ESTADO!=FINAL){
+    //confirmar respuesta
+    if ((TeclaPulsada()==START) && (ESTADO!=FINAL && ESTADO!=INICIO)){
         ESTADO=RESUELTO;
         seg=0;
     }
-
-    if (ESTADO != SELCAJA && ESTADO != RESUELTO) {
+    //seleccionar caja con la pantalla tactil
+    if (ESTADO==RESOLVIENDO) {
         switch(seleccionCaja(PANT_DAT.px,PANT_DAT.py)){
             case -1:
                 break;
@@ -232,15 +237,17 @@ void RutAtencionTempo() {
     tick++;
     touchRead(&PANT_DAT);
 
+    //mostrar pantalla final
     if (ESTADO==FINAL){
         mostrarFinal(tick%11);
     }
-
+    //se usa el tick%2 para que no se sumen billetes sin querer
     if(ESTADO==SELCAJA && tick%2==0){
         poderModificarDinero=true;
     }
 
-    if (ESTADO != FINAL && seg>=0) {
+    //mostrar tiempo,dinero y ronda y reiniciar ticks cada segundo
+    if ((ESTADO != FINAL && seg>=0) && ESTADO!=INICIO) {
         consoleClear();
         mostrarTiempo();
         if (tick==8 && seg>0){
@@ -251,12 +258,12 @@ void RutAtencionTempo() {
         printf("\x1b[%d;%dH %d / 10",0,24,ronda);
 
         printEstadoCajas();
-
+        //seg variable que controla el tiempo total al responder
         if (seg==0){
             ESTADO=RESUELTO;
         }
 
-
+        //comprueba la respuesta y inicia tiempo para cambio de estado (cuando pasen 5 segundos)
         if (ESTADO == RESUELTO) {
             mostrarMesasResuelto(preguntas[ronda-1].indCorrecta,mesaXpos,mesaYpos);
             Dinero = DineroCajas[preguntas[ronda-1].indCorrecta];
@@ -264,14 +271,14 @@ void RutAtencionTempo() {
                 seg5++;
                 tick=0;
             }
-
+            //animacion perder dinero de mesa incorrecta
             if (seg5==3){
                 caerBilletes(tick);
                 if (tick==8){
                     quitarBilletes(BilletesMesa,mesaXpos,mesaYpos,preguntas[ronda-1].indCorrecta);
                 }
             }
-
+            //cambiar al estado final si el dinero se acaba o llega a la ronda final
             if ((Dinero == 0 || ronda>=10) && (seg5==5)) {
                 ESTADO=FINAL;
                 quitarBilletesCorrecta(BilletesMesa,mesaXpos,mesaYpos,preguntas[ronda-1].indCorrecta);
