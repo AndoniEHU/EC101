@@ -19,8 +19,10 @@ y en otro ejemplo de Jaeden Ameronen
 #include "preguntas.h"
 
 int tiempo;
+int i;
 void juego()
 {
+    ESTADO=INICIO;
 	ConfigurarTemporizador(0x100,0xC1);
 	ConfigurarTeclado(0x43FB); // Todas por interrupcion excepto SELECT
 	EstablecerVectorInt();
@@ -28,23 +30,13 @@ void juego()
     mostrarInicio();
     HabilitarIntTempo();
     aleatorizarPreguntas();
-    ESTADO=PREGUNTA;
 
 	while(1)
 	{
-        /*
-        if (TeclaPulsada()==START){
-            iprintf("\x1b[%d;%dH %s",3,2,"START PULSADO");
-        }
-         */
         if (ESTADO == PREGUNTA) {
             cargarFondoMain();
             mostrarMesas(mesaXpos,mesaYpos);
             ESTADO=RESOLVIENDO;
-        }
-        if ((TeclaPulsada()==START) && ESTADO!=FINAL){
-            ESTADO=RESUELTO;
-            // seg=0;
         }
 	}
 }
