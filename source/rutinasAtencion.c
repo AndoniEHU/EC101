@@ -39,7 +39,7 @@ void mostrarInicio(){
     iprintf("\x1b[%d;%dH%s", 14, 0,"- START para confirmar respuesta");
     iprintf("\x1b[%d;%dH%s", 16, 0,"- B para deseleccionar la caja");
     iprintf("\x1b[%d;%dH%s", 18, 3,"Pulsa SELECT para comenzar!");
-    printf("ESTADO=%d",ESTADO);
+
     while(TeclaPulsada()!=SELECT){
         mostrarBilletesAleatorios(64,0+i,-15,true);
         mostrarBilletesAleatorios(65,190-i,-15,true);
