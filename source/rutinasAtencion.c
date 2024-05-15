@@ -23,7 +23,7 @@ int BilletesMesa[4] = {0};
 int mesaXpos[8] = {4,120,4,120,4,120,4,120};
 int mesaYpos[8] = {16,16,112,112,40,40,116,116};
 int indCaja;
-int ronda = 9;
+int ronda = 1;
 bool poderModificarDinero = true;
 static int seg = 45;
 static int seg5 = 0;
